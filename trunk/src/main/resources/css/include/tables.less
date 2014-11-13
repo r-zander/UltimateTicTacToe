@@ -1,0 +1,48 @@
+/**
+ *   Table Headers
+ */
+th {
+}
+
+th.vertical,
+.th-vertical // for reference in LESS
+{
+  vertical-align: top;
+  text-align: right;
+}
+
+/**
+ *   Table Content
+ */
+
+/*
+ * Wird auf Container mit beschränkter Breite angewandt, um 
+ * überlangen Text mit ... abzuschneiden.
+ */
+.limited {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  &:hover {
+    overflow: visible;
+  }
+}
+
+td.numeric {
+  text-align: right;
+}
+
+/*
+ * Fold / Unfold Rules
+ */
+col.folded {
+  visibility: collapse;
+}
+
+table:hover col.folded {
+  visibility: visible;
+}
+/*
+ * EO Fold / Unfold Rules
+ */
