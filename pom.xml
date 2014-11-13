@@ -15,12 +15,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>de.adclear.wicket</groupId>
-			<artifactId>adlib_wicket_1.5</artifactId>
-			<version>current-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.avaje</groupId>
 			<artifactId>ebean</artifactId>
 			<version>${ebean.version}</version>
@@ -53,6 +47,11 @@
 			<groupId>org.wicketstuff</groupId>
 			<artifactId>wicketstuff-annotationeventdispatcher</artifactId>
 			<version>${wicket.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.agilecoders.wicket</groupId>
+			<artifactId>wicket-bootstrap-less</artifactId>
+			<version>0.9.7</version>
 		</dependency>
 	</dependencies>
 

@@ -1,0 +1,121 @@
+
+@player1color: red;
+@player1symbol: 'X';
+
+@player2color: blue;
+@player2symbol: 'O';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  margin: 0 5%;
+  height: 90%;
+  position: relative;
+  top: 5%;
+  font-family: sans-serif;
+}
+
+.tile() {
+  float: left;
+  width: 30%;
+  height: 30%;
+}
+
+.board {
+  .tile();
+  position: relative;
+  
+  @border: 5px solid purple;
+  
+  &:nth-child(3n-2),
+  &:nth-child(3n-1) {
+    border-right: @border;
+  }
+  
+  &:nth-child(n+4) {
+    border-top: @border;
+  }
+  
+  &:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    font-size: 22vh;
+  }
+  
+  &.player1:before {
+    content: @player1symbol;
+    color: @player1color;
+  }
+  
+  &.player2:before {
+    content: @player2symbol;
+    color: @player2color;
+  }
+  
+  &.tied .field > a:before {
+    color: grey ! important;
+  }
+  
+  &.disabled:before {
+    content: '';
+    background-color: fade(grey, 50%);
+  }
+}
+
+.field {
+  .tile();
+  
+  @border: 2px solid green;
+  
+  &:nth-child(3n-2),
+  &:nth-child(3n-1) {
+    border-right: @border;
+  }
+  
+  &:nth-child(n+4) {
+    border-top: @border;
+  }
+  
+  > * {
+    display: block;
+    height: 100%;
+    font-size: 7vh;
+    text-align: center;
+    
+    &:link {
+      text-decoration: none;
+    }
+    
+    &:before {
+      color: grey;
+    }
+    
+    &.player1:before {
+      content: @player1symbol;
+      color: @player1color;
+    }
+    
+    &.player2:before {
+      content: @player2symbol;
+      color: @player2color;
+    }
+  }
+  
+
+}
+
+main.player1 .field > a:hover:before {
+  content: @player1symbol;
+}
+
+main.player2 .field > a:hover:before {
+  content: @player2symbol;
+}
