@@ -1,5 +1,5 @@
-package css;
+package resources.js;
 
-public class CssLocator {
+public class JsLocator {
     // Locator class doesn't need content.
 }

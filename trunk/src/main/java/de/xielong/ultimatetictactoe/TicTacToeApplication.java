@@ -7,17 +7,14 @@ import org.apache.log4j.PatternLayout;
 import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.WicketRuntimeException;
-import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
-import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
-import org.apache.wicket.authroles.authentication.pages.SignInPage;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.settings.IMarkupSettings;
 
-import de.xielong.ultimatetictactoe.authentication.BCryptAccountAuthenticatedWebSession;
+import de.agilecoders.wicket.less.BootstrapLess;
 import de.xielong.ultimatetictactoe.pages.GamePage;
-import de.xielong.wicket.less.LessUtil;
 
-public class TicTacToeApplication extends AuthenticatedWebApplication {
+public class TicTacToeApplication extends WebApplication {
 
     private static final Class<? extends WebPage> HOMEPAGE = GamePage.class;
 
@@ -67,22 +64,12 @@ public class TicTacToeApplication extends AuthenticatedWebApplication {
                 break;
         }
 
-        LessUtil.initApplication(this);
+        BootstrapLess.install(this);
     }
 
     @Override
     public Class<? extends Page> getHomePage() {
         return HOMEPAGE;
-    }
-
-    @Override
-    protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
-        return BCryptAccountAuthenticatedWebSession.class;
-    }
-
-    @Override
-    public Class<? extends WebPage> getSignInPageClass() {
-        return SignInPage.class;
     }
 
 }
