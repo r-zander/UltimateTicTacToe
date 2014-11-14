@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.RestartResponseException;
+import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -15,6 +17,7 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.util.time.Duration;
 
 import resources.ResourceLocator;
 import de.xielong.ultimatetictactoe.GameRules;
@@ -58,6 +61,9 @@ public class GamePage extends WebPage {
                 return currentGame.getWhoseTurn().getCssClass();
             }
         }));
+
+        main.setOutputMarkupId(true);
+        main.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(1)));
 
         RepeatingView boards = new RepeatingView("boards");
         main.add(boards);
@@ -150,6 +156,9 @@ public class GamePage extends WebPage {
             }
         });
 
+        gameStateContainer.setOutputMarkupId(true);
+        gameStateContainer.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(1)));
+
         WebMarkupContainer winnerContainer = new WebMarkupContainer("winner") {
 
             @Override
@@ -198,7 +207,9 @@ public class GamePage extends WebPage {
 
         if (currentGame == null) {
             currentGame = new Game();
-            GAMES.put(SEQUENCER.getAndIncrement(), currentGame);
+            int newId = SEQUENCER.getAndIncrement();
+            GAMES.put(newId, currentGame);
+            throw new RestartResponseException(GamePage.class, new PageParameters().add(Paramaters.GAME_ID, newId));
         }
     }
 
