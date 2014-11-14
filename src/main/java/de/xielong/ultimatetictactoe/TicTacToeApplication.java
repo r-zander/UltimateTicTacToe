@@ -36,6 +36,7 @@ public class TicTacToeApplication extends WebApplication {
         /*
          * Mount pages.
          */
+        mountPage("game/${" + GamePage.Paramaters.GAME_ID + "}", HOMEPAGE);
 
         IMarkupSettings markupSettings = getMarkupSettings();
         /*

@@ -3,9 +3,11 @@ package de.xielong.ultimatetictactoe.data;
 import java.io.Serializable;
 
 import lombok.Data;
+import lombok.ToString;
 import de.xielong.ultimatetictactoe.GameRules;
 
 @Data
+@ToString(exclude = { "fields" })
 public class Board implements CanBeOwned, Serializable {
 
     private final int index;
