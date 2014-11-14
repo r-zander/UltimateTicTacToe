@@ -53,6 +53,12 @@
 			<artifactId>wicket-bootstrap-less</artifactId>
 			<version>0.9.7</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -120,59 +126,18 @@
 				</configuration>
 				<version>2.8</version>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.avaje</groupId>
-				<artifactId>ebean-maven-enhancement-plugin</artifactId>
-				<version>${ebean.version}</version>
-				<executions>
-					<execution>
-						<id>main</id>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>enhance</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<classSource>${project.build.outputDirectory}</classSource>
-					<packages>de.dsaworld.authentication.persistence.**,de.dsaworld.taktik.persistence.**</packages>
-					<transformArgs>debug=1</transformArgs>
-				</configuration>
-			</plugin> -->
+			<!-- <plugin> <groupId>org.avaje</groupId> <artifactId>ebean-maven-enhancement-plugin</artifactId> <version>${ebean.version}</version> 
+				<executions> <execution> <id>main</id> <phase>process-classes</phase> <goals> <goal>enhance</goal> </goals> </execution> 
+				</executions> <configuration> <classSource>${project.build.outputDirectory}</classSource> <packages>de.dsaworld.authentication.persistence.**,de.dsaworld.taktik.persistence.**</packages> 
+				<transformArgs>debug=1</transformArgs> </configuration> </plugin> -->
 		</plugins>
 
-		<!-- <pluginManagement>
-			<plugins>
-				Tell M2E to please execute goal plugins. See http://wiki.eclipse.org/M2E_plugin_execution_not_covered
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								Ebean enhancement plugin
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.avaje</groupId>
-										<artifactId>ebean-maven-enhancement-plugin</artifactId>
-										<versionRange>[2.7.4,)</versionRange>
-										<goals>
-											<goal>enhance</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute>
-											<runOnIncremental>true</runOnIncremental>
-										</execute>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement> -->
+		<!-- <pluginManagement> <plugins> Tell M2E to please execute goal plugins. See http://wiki.eclipse.org/M2E_plugin_execution_not_covered 
+			<plugin> <groupId>org.eclipse.m2e</groupId> <artifactId>lifecycle-mapping</artifactId> <version>1.0.0</version> <configuration> 
+			<lifecycleMappingMetadata> <pluginExecutions> Ebean enhancement plugin <pluginExecution> <pluginExecutionFilter> <groupId>org.avaje</groupId> 
+			<artifactId>ebean-maven-enhancement-plugin</artifactId> <versionRange>[2.7.4,)</versionRange> <goals> <goal>enhance</goal> 
+			</goals> </pluginExecutionFilter> <action> <execute> <runOnIncremental>true</runOnIncremental> </execute> </action> </pluginExecution> 
+			</pluginExecutions> </lifecycleMappingMetadata> </configuration> </plugin> </plugins> </pluginManagement> -->
 	</build>
 
 	<artifactId>tictactoe</artifactId>

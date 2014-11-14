@@ -9,6 +9,7 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
@@ -16,9 +17,11 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import resources.ResourceLocator;
+import de.xielong.ultimatetictactoe.GameRules;
 import de.xielong.ultimatetictactoe.data.Board;
 import de.xielong.ultimatetictactoe.data.Field;
 import de.xielong.ultimatetictactoe.data.Game;
+import de.xielong.ultimatetictactoe.data.OwnedState;
 import de.xielong.ultimatetictactoe.data.Player;
 import de.xielong.wicket.behaviors.CssClassAppender;
 import de.xielong.wicket.component.GenericMarkupContainer;
@@ -42,11 +45,12 @@ public class GamePage extends WebPage {
         initializeCurrentGame(parameters);
 
         createGameComponents();
+
     }
 
     private void createGameComponents() {
         WebMarkupContainer main = new WebMarkupContainer("main");
-        add(main);
+        addOrReplace(main);
         main.add(new CssClassAppender(new AbstractReadOnlyModel<String>() {
 
             @Override
@@ -81,7 +85,7 @@ public class GamePage extends WebPage {
 
                 @Override
                 public String getObject() {
-                    Player winner = boardModel.getObject().getWinner();
+                    Player winner = boardModel.getObject().getOwnedBy();
                     return winner == null ? null : winner.getCssClass();
                 }
             }));
@@ -99,45 +103,7 @@ public class GamePage extends WebPage {
 
                     @Override
                     public void onClick() {
-                        /*
-                         * Markierung im Feld vermerken
-                         */
-                        Field currentField = getModelObject();
-                        currentField.setOwnedBy(currentGame.getWhoseTurn());
-
-                        /*
-                         * Alle Boards, ausser dem, mit dem Field-Index deaktivieren.
-                         */
-                        int currentFieldIndex = currentField.getIndex();
-                        boolean enableAll = currentGame.getBoards()[currentFieldIndex].isWon();
-                        for (Board board : currentGame.getBoards()) {
-                            board.setAllowed(enableAll || board.getIndex() == currentFieldIndex);
-                        }
-
-                        /*
-                         * Check current Board for winner.
-                         */
-                        // http://stackoverflow.com/a/1056352
-//                        Field[] otherFields = currentField.getBoard().getFields();
-//                        
-//                        switch (currentFieldIndex){
-//                            case 1:
-//                                if ( otherFields[] )
-//                        }
-
-                        /*
-                         * Turn to next player
-                         */
-                        switch (currentGame.getWhoseTurn()) {
-                            case ONE:
-                                currentGame.setWhoseTurn(Player.TWO);
-                                break;
-                            case TWO:
-                                currentGame.setWhoseTurn(Player.ONE);
-                                break;
-                            default:
-                                break;
-                        }
+                        GameRules.makeMove(currentGame, getModelObject());
                     }
 
                     @Override
@@ -159,6 +125,66 @@ public class GamePage extends WebPage {
                 }));
             }
         }
+        createGameStateLine();
+    }
+
+    private void createGameStateLine() {
+        WebMarkupContainer gameStateContainer = new WebMarkupContainer("gameState") {
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+
+                setVisible(currentGame.getState() != OwnedState.OPEN);
+            }
+        };
+        addOrReplace(gameStateContainer);
+
+        gameStateContainer.add(new WebMarkupContainer("tie") {
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+
+                setVisible(currentGame.getState() == OwnedState.TIED);
+            }
+        });
+
+        WebMarkupContainer winnerContainer = new WebMarkupContainer("winner") {
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+
+                setVisible(currentGame.getState() == OwnedState.WON);
+            }
+        };
+        gameStateContainer.add(winnerContainer);
+
+        winnerContainer.add(new Label("whoseTurn", new AbstractReadOnlyModel<String>() {
+
+            @Override
+            public String getObject() {
+                switch (currentGame.getWhoseTurn()) {
+                    case ONE:
+                        return "Player 1";
+                    case TWO:
+                        return "Player 2";
+                    default:
+                        throw new IllegalStateException();
+                }
+            }
+        }));
+
+        gameStateContainer.add(new Link<Void>("restart") {
+
+            @Override
+            public void onClick() {
+                currentGame = new Game();
+                createGameComponents();
+            }
+
+        });
     }
 
     private void initializeCurrentGame(PageParameters parameters) {
