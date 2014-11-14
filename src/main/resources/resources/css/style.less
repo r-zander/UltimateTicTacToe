@@ -12,32 +12,29 @@ html, body {
 }
 
 main {
-  margin: 0 5%;
-  height: 90%;
-  position: relative;
-  top: 5%;
+  margin: 0 3.5vw;
   font-family: sans-serif;
+  overflow: auto;
 }
 
 .tile() {
-  float: left;
-  width: 30%;
-  height: 30%;
 }
 
 .board {
-  .tile();
+  float: left;
+  width: 30vw;
+  height: 28vh;
   position: relative;
   
-  @border: 5px solid purple;
+  @border: solid purple;
   
   &:nth-child(3n-2),
   &:nth-child(3n-1) {
-    border-right: @border;
+    border-right: 0.5vw @border;
   }
   
   &:nth-child(n+4) {
-    border-top: @border;
+    border-top: 1vh @border;
   }
   
   &:before {
@@ -51,16 +48,16 @@ main {
   }
   
   &.player1:before {
-    content: @player1symbol;
+    content: @player1symbol !important;
     color: @player1color;
   }
   
   &.player2:before {
-    content: @player2symbol;
+    content: @player2symbol !important;
     color: @player2color;
   }
   
-  &.tied .field > a:before {
+  &.tied .field > *:before {
     color: grey ! important;
   }
   
@@ -71,7 +68,9 @@ main {
 }
 
 .field {
-  .tile();
+  float: left;
+  width: 30%;
+  height: 30%;
   
   @border: 2px solid green;
   

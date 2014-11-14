@@ -14,11 +14,23 @@
 		<h1>Ultimate Tic-Tac-Toe</h1>
 	</header>
 	<main wicket:id="main">
-		<div wicket:id="boards" class="board">
-			<div wicket:id="fields" class="field">
-				<a wicket:id="control"></a>
-			</div>
+	<div wicket:id="boards" class="board">
+		<div wicket:id="fields" class="field">
+			<a wicket:id="control"></a>
 		</div>
+	</div>
 	</main>
+	<div wicket:id="gameState">
+		<wicket:container wicket:id="tie">
+		The game <span class="tied">tied.</span>
+		</wicket:container>
+		<wicket:container wicket:id="winner">
+			<span wicket:id="whoseTurn">
+				<!-- Spieler 1 | 2 -->
+			</span>
+		has won the game.
+		</wicket:container>
+		<a wicket:id="restart">Restart!</a>
+	</div>
 </body>
 </html>

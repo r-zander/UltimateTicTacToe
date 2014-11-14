@@ -5,12 +5,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class Field implements Serializable {
+public class Field implements CanBeOwned, Serializable {
 
-    private final int index;
+    private final int   index;
 
-    private Board     board;
+    private final Board board;
 
-    private Player    ownedBy;
+    private Player      ownedBy;
 
 }
