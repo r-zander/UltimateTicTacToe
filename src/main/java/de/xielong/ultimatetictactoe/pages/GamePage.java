@@ -12,11 +12,13 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.util.time.Duration;
 
 import resources.ResourceLocator;
@@ -46,6 +48,8 @@ public class GamePage extends WebPage {
         super(parameters);
 
         initializeCurrentGame(parameters);
+
+        add(new Image("explanation", new PackageResourceReference(ResourceLocator.class, "img/explanation.jpg")));
 
         createGameComponents();
 

@@ -12,13 +12,17 @@
 <body>
 	<header>
 		<h1>Ultimate Tic-Tac-Toe</h1>
+		<div id="explanation">
+			<a href="#explanation">Explanation</a>
+			<a href="#"><img wicket:id="explanation" /></a>
+		</div>
 	</header>
 	<main wicket:id="main">
-	<div wicket:id="boards" class="board">
-		<div wicket:id="fields" class="field">
-			<a wicket:id="control"></a>
+		<div wicket:id="boards" class="board">
+			<div wicket:id="fields" class="field">
+				<a wicket:id="control"></a>
+			</div>
 		</div>
-	</div>
 	</main>
 	<div wicket:id="gameState">
 		<wicket:container wicket:id="tie">
