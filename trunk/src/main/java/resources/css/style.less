@@ -11,10 +11,36 @@ html, body {
   padding: 0;
 }
 
+// header {
+  // float: left;
+  // width: 100%;
+// }
+// 
+// h1 {
+  // float: left;
+// }
+
+#explanation {
+  // float: right;
+  
+  img {
+    display: none;
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    z-index: 1;
+  }
+  
+  &:target img {
+    display: inline-block;
+  }
+}
+
 main {
   margin: 0 3.5vw;
   font-family: sans-serif;
   overflow: auto;
+  clear: both;
 }
 
 .tile() {
